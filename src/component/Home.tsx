@@ -6,9 +6,7 @@ import AddTodoForme from './AddTodoForme';
 import TodoList from './TodoList';
 import Todosummary from './Todosummary';
 import { Todo } from '../types/todos';
-import SignIn from "./SignIn";
-import Signup from "./SignUp";
-import { Link } from "react-router-dom";
+
 
 
 export default function Home() {
@@ -57,25 +55,12 @@ export default function Home() {
   return (
     
     <main className=" bg-purple-300 h-screen space-y-5">
-    
-        <div className="flex grow bg-white p-2 ">
-            <ul className="flex flex-row  gap-3">
-                <li>
-                    <button className="bg-slate-500 text-white p-2 rounded">
-                      <Link to="./SignIn"><SignIn></SignIn></Link>
-                    </button>
-                </li>
-                <li>
-                    <button className="bg-slate-500 text-white p-2 rounded">
-                       <Link to="./SignUp"><Signup></Signup></Link>
-                    </button>
-                </li>
-            </ul>
-        </div>
-      
-      <h1 className="font-bold text-3xl text-center">
+      <div className="font-bold text-3xl text-center pt-10">
+            <h1>Add Your Tasks</h1>
+       </div>
+      <h2 className="text-lg text-center">
         Your Todos
-      </h1>
+      </h2>
       <div className="max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6">
       <AddTodoForme onSubmit={addTodo}></AddTodoForme>
       <TodoList todos={todos} onCompletedChange={setTodoCompleted} onDelete={deleteTodo}></TodoList>
