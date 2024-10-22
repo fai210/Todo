@@ -1,5 +1,5 @@
-import SignIn from "./SignIn";
-import Signup from "./SignUp";
+// import SignIn from "./SignIn";
+// import Signup from "./SignUp";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -8,12 +8,12 @@ export default function Header() {
             <ul className="flex flex-row  gap-3">
                 <li>
                     <button className="bg-slate-500 text-white p-2 rounded">
-                      <Link to="./SignIn"><SignIn></SignIn></Link>
+                      <Link to="./SignIn">SignIn</Link>
                     </button>
                 </li>
                 <li>
                     <button className="bg-slate-500 text-white p-2 rounded">
-                       <Link to="./SignUp"><Signup></Signup></Link>
+                       <Link to="./SignUp">SignUp</Link>
                     </button>
                 </li>
             </ul>
