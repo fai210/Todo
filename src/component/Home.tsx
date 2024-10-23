@@ -9,6 +9,7 @@ import { Todo } from '../types/todos';
 
 
 
+
 export default function Home() {
 
 
@@ -53,8 +54,8 @@ export default function Home() {
     
 
   return (
-    
-    <main className=" bg-purple-300 h-screen space-y-5">
+   
+    <main className="">
       <div className="font-bold text-3xl text-center pt-10">
             <h1>Add Your Tasks</h1>
        </div>

@@ -1,13 +1,14 @@
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./header";
-import Home from "./Home";
+
 
 export default function Layout() {
 
   return (
-   <div>
+   <div className=" bg-purple-300 h-screen">
       <Header/>
-      <Home />
+      <Outlet />
       <Footer />
    </div>
   )
