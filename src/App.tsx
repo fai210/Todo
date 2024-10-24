@@ -4,10 +4,11 @@
 //   import * as ReactDOM from "react-dom";
   import {
     createBrowserRouter,
+
     RouterProvider,
   } from "react-router-dom";
 import SignIn from "./component/SignIn";
-import Signup from "./component/SignUp";
+import Signup from "./component/Signup";
 import Layout from "./component/Layout";
 import Home from "./component/Home";
 
@@ -24,7 +25,7 @@ function App() {
      element:<Layout />,
      children:[
       {
-        index: true,
+        path: "/Home",
         element: <Home />,
         
       },

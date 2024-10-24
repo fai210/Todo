@@ -1,11 +1,15 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import http from "./http/http";
+import { useNavigate } from "react-router-dom";
 
 
 
-const schcmavalidation=z.object({
-    firstName:z.string().min(7,"nnnnnnnn"),
+
+
+const schemaValidation=z.object({
+    firstName:z.string(),
     email:z.string().email("Invalid Email"),
     password:z.string().min(9,"Minimum length is 9"),
     confirmPassword:z.string().min(9,"Minimum length is 9")
@@ -16,18 +20,37 @@ const schcmavalidation=z.object({
 
 })
 
-type schcmavalidation =z.infer<typeof schcmavalidation>
+type SchemaValidation = z.infer<typeof schemaValidation>;
+  export default function Signup() {
 
-export default function Signup() {
-    const { register, handleSubmit, formState: { errors }  } = useForm<schcmavalidation>({resolver: zodResolver(schcmavalidation)});
-     console.log(errors)
+    const navigate = useNavigate();
+
+    const { register, handleSubmit, formState: { errors } } = useForm<SchemaValidation>({
+        resolver: zodResolver(schemaValidation),
+    });
+      
+      const onSubmit : SubmitHandler<SchemaValidation> =  (data) => {
+
+          http.post("/user", data).then((res)=>{
+
+            if(res.data){
+              console.log(res);
+              navigate("/Home"); 
+
+            }
+           
+
+
+            });
+        
+    };
+
+
+
     return (
         <div className="space-y-5 pt-14  pb-4" >
             <h1 className="font-bold text-3xl text-center pt-2 ">Register</h1>
-            <form className="flex flex-col  max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6 " onSubmit={handleSubmit((data) => {
-                console.log(data);
-                
-            })}>
+            <form className="flex flex-col  max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
                 <p className="text-center ">Create a new account</p>
                 <label className="font-bold ">First Name:</label>
                 <input className="w-11/12 rounded-lg p-2" {...register("firstName")} type="text" placeholder="First Name" />
@@ -51,3 +74,6 @@ export default function Signup() {
         </div>
     );
 }
+
+
+
