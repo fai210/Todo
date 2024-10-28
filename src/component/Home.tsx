@@ -4,9 +4,9 @@ import { useEffect, useState } from "react"
 import { dummyData } from '../data/todo';
 import AddTodoForme from './AddTodoForme';
 import TodoList from './TodoList';
-import Todosummary from './Todosummary';
+// import Todosummary from './Todosummary';
 import { Todo } from '../types/todos';
-
+import Todosummary from "./TodoSummary";
 
 
 
@@ -62,7 +62,7 @@ export default function Home() {
       <h2 className="text-lg text-center">
         Your Todos
       </h2>
-      <div className="max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6">
+      <div className="max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6">
       <AddTodoForme onSubmit={addTodo}></AddTodoForme>
       <TodoList todos={todos} onCompletedChange={setTodoCompleted} onDelete={deleteTodo}></TodoList>
       </div>

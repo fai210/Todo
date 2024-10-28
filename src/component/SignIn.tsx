@@ -30,7 +30,9 @@ export default function SignIn() {
 
             console.log(result.data);
         const login = result.data.find((item)=> item.firstName === data.firstName && item.password === data.password);
+        
         if (login) {
+            // here
             navigate("/Home"); 
         } else {
             console.log("Invalid username or password");
@@ -42,7 +44,8 @@ export default function SignIn() {
 };
   return (
     <div className="space-y-5 pt-14  pb-4" >
-        <form className="flex flex-col  max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="font-bold text-3xl text-center pt-2 ">Login</h1>
+        <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
             <label className="font-bold ">First Name:</label>
             <input className="w-11/12 rounded-lg p-2" {...register("firstName")} type="text" placeholder="First Name" />
             <p>{errors.firstName?.message}</p>

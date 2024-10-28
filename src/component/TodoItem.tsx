@@ -7,6 +7,8 @@ interface TodoItemProps{
     onCompletedChange:(id:number, completed:boolean) => void;
     onDelete: (id: number) => void;
 }
+
+
 export default function TodoItem({todo, onCompletedChange, onDelete}:TodoItemProps) {
   return (
     <div className=" flex items-center gap-1 ">

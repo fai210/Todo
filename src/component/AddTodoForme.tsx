@@ -1,4 +1,5 @@
 import { useState } from "react"
+import http from "./http/http";
 
 interface AddTodoProps{
     onSubmit: (title: string) => void;
@@ -12,9 +13,14 @@ function AddTodoForme({onSubmit}: AddTodoProps) {
         e.preventDefault();
 
         if(!input.trim()) return;
-
-        onSubmit(input);
-        setinput("");
+        {
+            const response = http.post<{ title: string }>("todo", { title: input });
+            console.log(response); 
+            
+    
+            onSubmit(input);
+            setinput(""); 
+        }
     }
 
 

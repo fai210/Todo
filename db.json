@@ -3,7 +3,8 @@
     {
       "firstName": "string",
       "email": "string",
-      "password": "string"
+      "password": "string",
+      "id": "8690"
     },
     {
       "id": "0972",
@@ -132,9 +133,27 @@
       "confirmPassword": "1234567890"
     }
   ],
-  "todo": {
-    "id": "number",
-    "title": "string",
-    "completed": "boolean"
-  }
+  "todo": [
+    {
+      "id": "number",
+      "title": "string",
+      "completed": "boolean"
+    },
+    {
+      "id": "e69f",
+      "title": "hh"
+    },
+    {
+      "id": "4755",
+      "title": "rrrr"
+    },
+    {
+      "id": "0860",
+      "title": "homework2"
+    },
+    {
+      "id": "8799",
+      "title": "homework3"
+    }
+  ]
 }

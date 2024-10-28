@@ -3,6 +3,7 @@ import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import http from "./http/http";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -50,7 +51,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
     return (
         <div className="space-y-5 pt-14  pb-4" >
             <h1 className="font-bold text-3xl text-center pt-2 ">Register</h1>
-            <form className="flex flex-col  max-w-lg  mx-auto bg-slate-100 rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
                 <p className="text-center ">Create a new account</p>
                 <label className="font-bold ">First Name:</label>
                 <input className="w-11/12 rounded-lg p-2" {...register("firstName")} type="text" placeholder="First Name" />
@@ -70,7 +71,10 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
                 <p>{errors.confirmPassword?.message}</p>
 
                 <input className="bg-black w-4/5 p-2 rounded-lg  text-white  hover:bg-slate-400" type="submit" />
+                  
+                  <p className="font-bold pl-4">You Have Account?<Link to="/SignIn" className="p-2 rounded-lg text-gray-600 underline">Login </Link></p>
             </form>
+          
         </div>
     );
 }
