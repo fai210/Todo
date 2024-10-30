@@ -4,7 +4,8 @@
 
 import { Link } from "react-router-dom";
 
-import {moodStore} from "./Zustand/Zustand";
+import {moodStore} from "./Zu/Zustand";
+import Logout from "./Layout"
 
 
 
@@ -12,6 +13,7 @@ export default function Header() {
 
     const getModemood = moodStore((state)=> state.mood)
     const getToggleMood = moodStore((state)=> state.toggleMood)
+
 
 
   return (
@@ -33,6 +35,9 @@ export default function Header() {
                     </MoodProvider> */}
                     <button onClick={getToggleMood} className="bg-slate-500 text-white p-2 rounded"  >mood {getModemood}</button>
 
+                </li>
+                <li>
+                    <Logout />
                 </li>
             </ul>
             <img src="src/assets/to-do-list.png" className="w-11 h-13"></img>

@@ -1,47 +1,37 @@
 import { useForm } from "react-hook-form"
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import http from "./http/http";
-import { useNavigate } from "react-router-dom";
+// import http from "./http/http";
+// import { useNavigate } from "react-router-dom";
+import { useAuth } from "./context/AuthProvider";
 
 
-const loginvalidation=z.object({
-    firstName:z.string(), 
-    password:z.string().min(9,"Minimum length is 9"),
+
+const loginValidation=z.object({
+    firstName: z.string().min(1, "First name is required"), 
+    password: z.string().min(9, "Minimum length is 9"),
 })
-// .refine((data) => data.firstName && data.password, {
-//     message: "Invalid username or password",
-//     path: ["password"],
-// });
 
-type loginvalidation =z.infer<typeof loginvalidation>
+
+type LoginValidation =z.infer<typeof loginValidation>
 
 export default function SignIn() {
 
-      
-    const navigate = useNavigate();
+   
+    const { login } = useAuth(); 
+   
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginValidation>({
+        resolver: zodResolver(loginValidation),
+    });
 
-    const { register, handleSubmit ,formState: { errors }  } = useForm<loginvalidation>({resolver: zodResolver(loginvalidation)});
-    console.log(errors)
-
-    const onSubmit = async (data: loginvalidation) => {
-
-        await http.get<loginvalidation[]>("/user").then((result)=>{
-
-            console.log(result.data);
-        const login = result.data.find((item)=> item.firstName === data.firstName && item.password === data.password);
-        
-        if (login) {
-            // here
-            navigate("/Home"); 
-        } else {
-            console.log("Invalid username or password");
+    const onSubmit = async (data: LoginValidation) => {
+        try {
+            await login(data); 
+        } catch (error) {
+            console.error("Login failed:", error);
+            alert("Invalid username or password"); 
         }
-    
-
-        });
-        
-};
+    };
   return (
     <div className="space-y-5 pt-14  pb-4" >
         <h1 className="font-bold text-3xl text-center pt-2 ">Login</h1>
@@ -59,3 +49,6 @@ export default function SignIn() {
     </div>
   )
 }
+
+
+

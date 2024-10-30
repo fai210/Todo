@@ -36,7 +36,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
 
             if(res.data){
               console.log(res);
-              navigate("/Home"); 
+              navigate("/"); 
 
             }
            

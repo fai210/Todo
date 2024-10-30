@@ -131,13 +131,35 @@
       "email": "rana333@gmail.com",
       "password": "1234567890",
       "confirmPassword": "1234567890"
+    },
+    {
+      "id": "2907",
+      "firstName": "fahad",
+      "email": "fahad11@gmail.com",
+      "password": "1234567890",
+      "confirmPassword": "1234567890"
+    },
+    {
+      "id": "1a73",
+      "firstName": "Ahmad",
+      "email": "ahmad@gmail.com",
+      "password": "1234567890",
+      "confirmPassword": "1234567890"
+    },
+    {
+      "id": "3e67",
+      "firstName": "fai",
+      "email": "faiabdulla123@gmail.com",
+      "password": "1234567890",
+      "confirmPassword": "1234567890"
     }
   ],
   "todo": [
     {
       "id": "number",
       "title": "string",
-      "completed": "boolean"
+      "completed": "boolean",
+      "userId":"number"
     },
     {
       "id": "e69f",
@@ -154,6 +176,15 @@
     {
       "id": "8799",
       "title": "homework3"
+    },
+    {
+      "id": "6668",
+      "title": "homework2"
+    },
+    {
+      "id": "cfda",
+      "title": "homework2",
+      "userId": "8690"
     }
   ]
 }
