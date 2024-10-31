@@ -1,18 +1,21 @@
 import { useAuth } from "./context/AuthProvider"; 
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Logout() {
-    const { logout } = useAuth(); 
-   
+export const useLogout = () => {
+    const auth = useAuth(); 
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout(); 
-        
+        if (auth) { 
+            auth.logOut(); 
+            navigate("/SignIn"); 
+        } else {
+            console.error("Auth context is undefined");
+        }
     };
 
-    <button
-    onClick={handleLogout}
-    className="">
-    Logout
-</button>
-}
+    return handleLogout;
+};
+
+
+

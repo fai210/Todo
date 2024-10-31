@@ -7,9 +7,11 @@ import Todosummary from "./TodoSummary";
 import { Todo } from '../types/todos';
 
 export default function Home() {
-    const { userId } = useAuth(); 
-    const [todos, setTodos] = useState(() => {
-        const savedTodos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
+    const auth = useAuth(); 
+    const userId = auth?.userI?.id; 
+
+    const [todos, setTodos] = useState<Todo[]>(() => {
+        const savedTodos = JSON.parse(localStorage.getItem("todos") || "[]");
         return savedTodos.length > 0 ? savedTodos : dummyData;
     });
 
@@ -47,17 +49,16 @@ export default function Home() {
     return (
         <main className="">
             <div className="font-bold text-3xl text-center pt-10">
-                <h1>Add Your Tasks</h1>
+                <h1>Add {auth?.userInfo } Tasks</h1>
             </div>
-            <h2 className="text-lg text-center">
-                Your Todos
-            </h2>
+            <h2 className="text-lg text-center">Your Todos</h2>
             <div className="max-w-lg mx-auto bg-slate-100 rounded-md p-5 space-y-6">
-                <AddTodoForm onSubmit={addTodo}></AddTodoForm>
-                <TodoList todos={todos} onCompletedChange={setTodoCompleted} onDelete={deleteTodo}></TodoList>
+                <AddTodoForm onSubmit={addTodo} />
+                <TodoList todos={todos} onCompletedChange={setTodoCompleted} onDelete={deleteTodo} />
             </div>
-            <Todosummary todos={todos} deleteAllCompleted={deleteAllCompleted}></Todosummary>
+            <Todosummary todos={todos} deleteAllCompleted={deleteAllCompleted} />
         </main>
     );
 }
+
 

@@ -4,3 +4,10 @@ export interface Todo{
     completed: boolean ;
     userId: string; 
 }
+
+export interface Iuser{
+    id?:string;
+    firstName: string; 
+    password: string ;
+  
+}

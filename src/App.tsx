@@ -4,7 +4,7 @@
 
   import {
     createBrowserRouter,
-    BrowserRouter,
+  
     RouterProvider,
   
   } from "react-router-dom";
@@ -16,9 +16,8 @@ import { useEffect } from "react";
 import { mood } from "./component/Zu/Zustand";
 import AuthProvider from "./component/context/AuthProvider";
 // import AuthProvider from "./component/context/AuthProvider"
-// import Logout from "./component/logout";
-
 // import { MoodProvider } from "./component/context/ContextMood";
+import { QueryClient, QueryClientProvider  } from "@tanstack/react-query";
 
 function App() {
     const router = createBrowserRouter([{
@@ -27,7 +26,7 @@ function App() {
      element:<Layout />,
      children:[
       {
-        path: "/Home",
+        path: "/",
         element: <Home />,
         
       },
@@ -56,21 +55,17 @@ useEffect(() => {
     }
 }, [getMode]); 
 
+const qureyClinet= new QueryClient();
 
 return (
  
-  // <AuthProvider>
-  //   <RouterProvider router={router} />
-  // </AuthProvider>
-
-<BrowserRouter>
   <AuthProvider>
-    
-                    
-      <RouterProvider router={router} />
-    
+    <QueryClientProvider client={qureyClinet}>
+       <RouterProvider router={router} />
+    </QueryClientProvider>
   </AuthProvider>
-</BrowserRouter>
+
+
   
     
   

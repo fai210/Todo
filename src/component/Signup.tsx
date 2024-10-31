@@ -23,7 +23,7 @@ const schemaValidation=z.object({
 
 type SchemaValidation = z.infer<typeof schemaValidation>;
   export default function Signup() {
-
+  
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm<SchemaValidation>({

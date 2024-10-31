@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 // import http from "./http/http";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthProvider";
 
 
@@ -11,27 +11,31 @@ const loginValidation=z.object({
     firstName: z.string().min(1, "First name is required"), 
     password: z.string().min(9, "Minimum length is 9"),
 })
+// .refine((data) => data.firstName && data.password, {
+//     message: "Invalid username or password",
+//     path: ["password"],
+// });
 
-
-type LoginValidation =z.infer<typeof loginValidation>
+type LoginValidation = z.infer<typeof loginValidation>;
 
 export default function SignIn() {
-
-   
-    const { login } = useAuth(); 
-   
+    const auth = useAuth();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<LoginValidation>({
         resolver: zodResolver(loginValidation),
     });
 
+ 
     const onSubmit = async (data: LoginValidation) => {
         try {
-            await login(data); 
+            await auth?.loginAction(data); 
+            navigate("/"); 
         } catch (error) {
             console.error("Login failed:", error);
             alert("Invalid username or password"); 
         }
     };
+
   return (
     <div className="space-y-5 pt-14  pb-4" >
         <h1 className="font-bold text-3xl text-center pt-2 ">Login</h1>

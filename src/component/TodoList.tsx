@@ -13,13 +13,13 @@ export default function TodoList({
     onCompletedChange,
     onDelete,
 }: TodoListProps) {
-    const { userId } = useAuth(); 
+    const auth = useAuth(); 
+    const userId = auth?.userI?.id; 
 
-    // Filter todos based on the current user's ID
-    // userId =  getloaclStorage.getitem('user')
-    const userTodos = todos.filter(todo => todo.userId === userId);
+    
+    const userTodos = userId ? todos.filter(todo => todo.userId === userId) : [];
 
-    // Sort the user's todos
+   
     const todosSorted = userTodos.sort((a, b) => {
         if (a.completed === b.completed) {
             return b.id - a.id;
@@ -47,4 +47,3 @@ export default function TodoList({
         </>
     );
 }
-

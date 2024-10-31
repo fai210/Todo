@@ -9,7 +9,8 @@ interface TodoItemProps {
 }
 
 export default function TodoItem({ todo, onCompletedChange, onDelete }: TodoItemProps) {
-    const { userId } = useAuth(); 
+    const auth = useAuth(); 
+    const userId = auth?.userI?.id; 
 
     return (
         <div className="flex items-center gap-2">
@@ -24,7 +25,7 @@ export default function TodoItem({ todo, onCompletedChange, onDelete }: TodoItem
                     {todo.title}
                 </span>
             </label>
-            {todo.userId === userId && (
+            {userId && todo.userId === userId && (
                 <button onClick={() => onDelete(todo.id)} className="p-2">
                     <Trash2 size={20} className="text-gray-500" />
                 </button>
