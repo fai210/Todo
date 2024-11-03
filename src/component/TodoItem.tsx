@@ -4,7 +4,7 @@ import { useAuth } from "./context/AuthProvider";
 
 interface TodoItemProps {
     todo: Todo;
-    onCompletedChange: (id: number, completed: boolean) => void;
+    onCompletedChange:  (id: number, completed: boolean) => void;
     onDelete: (id: number) => void;
 }
 
@@ -18,7 +18,7 @@ export default function TodoItem({ todo, onCompletedChange, onDelete }: TodoItem
                 <input
                     type="checkbox"
                     checked={todo.completed}
-                    onChange={(e) => onCompletedChange(todo.id, e.target.checked)}
+                    onChange={() => onCompletedChange(todo.id, todo.completed)}   
                     className="scale-125"
                 />
                 <span className={todo.completed ? "line-through text-gray-400" : ""}>

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-// import http from "./http/http";
+import http from "./http/http";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthProvider";
 
@@ -11,10 +11,6 @@ const loginValidation=z.object({
     firstName: z.string().min(1, "First name is required"), 
     password: z.string().min(9, "Minimum length is 9"),
 })
-// .refine((data) => data.firstName && data.password, {
-//     message: "Invalid username or password",
-//     path: ["password"],
-// });
 
 type LoginValidation = z.infer<typeof loginValidation>;
 
@@ -27,9 +23,18 @@ export default function SignIn() {
 
  
     const onSubmit = async (data: LoginValidation) => {
+
         try {
-            await auth?.loginAction(data); 
-            navigate("/"); 
+        
+                const response = await http.get<{ firstName: string; password: string; id: string; userId: string | null }[]>("/user");
+                const users = response.data;
+                const foundUser = users.find(item => item.firstName === data.firstName && item.password === data.password);
+                console.log(foundUser)
+                if (foundUser) {
+                    await auth?.loginAction(foundUser); 
+                    navigate("/"); 
+                } 
+            
         } catch (error) {
             console.error("Login failed:", error);
             alert("Invalid username or password"); 

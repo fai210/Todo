@@ -6,7 +6,7 @@ import { Iuser } from "../../types/todos";
 export type AuthContextType = {
     userI: Iuser | null;
     userInfo: string;
-    loginAction: (data: { firstName: string; password: string }) => void;
+    loginAction: (data: Iuser) => void;
     logOut: () => void;
 };
 
@@ -19,8 +19,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     const loginAction = async (data:Iuser) => {
+        console.log(data)
          setUser(data);
          setUserInfo(data.firstName)
+        
        
       
     };

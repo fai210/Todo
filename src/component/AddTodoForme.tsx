@@ -1,53 +1,46 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import http from "./http/http";
+import { useMutation, useQueryClient} from "@tanstack/react-query";
+import { useAuth } from './context/AuthProvider'; 
 
-interface AddTodoProps {
-    onSubmit: (title: string, userId: string) => void;
-}
 
-function AddTodoForme({ onSubmit }: AddTodoProps) {
+
+function AddTodoForme( ) {
     const [input, setInput] = useState("");
-    const [userId, setUserId] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState<string | null>(null); // Error state
+    const auth = useAuth(); 
+    const userId = auth?.userI?.id; 
+    
+   
+    
+    const queryClient=useQueryClient()
 
-    useEffect(() => {
-        const getUserId = async () => {
-            try {
-                const response = await http.get<{ id: string }[]>("/user");
-                if (response.data.length > 0) {
-                    setUserId(response.data[0].id);
-                }
-            } catch (err) {
-                console.error("Error fetching user ID:", err);
-                setError("Failed to fetch user ID.");
-            } finally {
-                setLoading(false); // Set loading to false after fetching
-            }
-        };
+    const addToo = useMutation({
+        mutationFn: (body: { title: string; userId: string }) =>
+            http.post<{ title: string; userId: string }>("todo", body).then(res => res.data),
+        onError: (err) => {
+            console.error("Error adding todo:", err);
+        },
+        onSuccess:()=>{
+            queryClient.invalidateQueries({
+                queryKey:["todos"]
+            })
+        }
+    });
 
-        getUserId();
-    }, []);
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!input.trim() || !userId) return; 
+        if (!input.trim() || !userId) return;
 
-        try {
-            const response = await http.post<{ title: string, userId: string }>("todo", { title: input, userId });
-            console.log(response);
-            onSubmit(input, userId);
-            setInput("");
-        } catch (err) {
-            console.error("Error adding todo:", err);
-            setError("Failed to add todo.");
-        }
+        addToo.mutateAsync({ title: input, userId }, {
+            onSuccess: () => {
+               
+                setInput("");
+            }
+        });
     };
 
-    if (loading) {
-        return <p>Loading...</p>; // Display loading text
-    }
+    
 
     return (
         <form className="flex" onSubmit={handleSubmit}>
@@ -60,11 +53,9 @@ function AddTodoForme({ onSubmit }: AddTodoProps) {
             <button type="submit" className="w-16 rounded-e-md bg-black text-white hover:bg-slate-500">
                 Add
             </button>
-            {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+            
         </form>
     );
 }
 
 export default AddTodoForme;
-
-

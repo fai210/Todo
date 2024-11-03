@@ -4,7 +4,7 @@ import { useAuth } from "./context/AuthProvider";
 
 interface TodoListProps {
     todos: Todo[];
-    onCompletedChange: (id: number, completed: boolean) => void;
+    onCompletedChange:  (id: number, completed: boolean) => void;
     onDelete: (id: number) => void;
 }
 
@@ -34,7 +34,7 @@ export default function TodoList({
                     <TodoItem
                         key={todo.id}
                         todo={todo}
-                        onCompletedChange={onCompletedChange}
+                        onCompletedChange={(id, completed) => onCompletedChange(id, completed)}
                         onDelete={onDelete}
                     />
                 ))}

@@ -6,7 +6,7 @@ export interface Todo{
 }
 
 export interface Iuser{
-    id?:string;
+    id:string;
     firstName: string; 
     password: string ;
   
