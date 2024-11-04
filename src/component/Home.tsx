@@ -46,6 +46,8 @@ export default function Home() {
         },
     });
 
+
+
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Failed to get todos</p>;
     console.log(todos)
@@ -59,12 +61,14 @@ export default function Home() {
         deleteCompleted.mutate();
     };
      
-    const handleCompletedChange = (id: number, completed: boolean) => {
+    const handleCompletedChange = (id: number, ) => {
         const todoToUpdate = todos.find(todo => todo.id === id);
         if (todoToUpdate) {
-            toggleCompleted.mutate({ ...todoToUpdate, completed: !completed });
+            toggleCompleted.mutate({ ...todoToUpdate });
         }
     };
+  
+    
 
     return (
         <main className="">

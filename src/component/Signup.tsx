@@ -1,16 +1,19 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import http from "./http/http";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 
 
 
 
 const schemaValidation=z.object({
-    firstName:z.string(),
+    firstName:z.string().min(1, "First name is required"),
     email:z.string().email("Invalid Email"),
     password:z.string().min(9,"Minimum length is 9"),
     confirmPassword:z.string().min(9,"Minimum length is 9")
@@ -26,8 +29,9 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
   
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<SchemaValidation>({
+    const form = useForm<SchemaValidation>({
         resolver: zodResolver(schemaValidation),
+       
     });
       
       const onSubmit : SubmitHandler<SchemaValidation> =  (data) => {
@@ -49,35 +53,77 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
 
 
     return (
+      <FormProvider {...form}>
         <div className="space-y-5 pt-14  pb-4" >
             <h1 className="font-bold text-3xl text-center pt-2 ">Register</h1>
-            <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
-                <p className="text-center ">Create a new account</p>
-                <label className="font-bold ">First Name:</label>
-                <input className="w-11/12 rounded-lg p-2" {...register("firstName")} type="text" placeholder="First Name" />
-                <p>{errors.firstName?.message}</p>
-               
-
-                <label className="font-bold ">Your Email:</label>
-                <input className="w-11/12 rounded-lg p-2" {...register("email")} type="text" placeholder="Email" />
-                <p>{errors.email?.message}</p>
-
-                <label className="font-bold ">Password:</label>
-                <input className="w-11/12 rounded-lg p-2" {...register("password" )} type="text" placeholder="Password" />
-                <p>{errors.password?.message}</p>
-
-                <label className="font-bold ">confirm Password:</label>
-                <input className="w-11/12 rounded-lg p-2" {...register("confirmPassword")} type="text" placeholder="confirm Password" />
-                <p>{errors.confirmPassword?.message}</p>
-
-                <input className="bg-black w-4/5 p-2 rounded-lg  text-white  hover:bg-slate-400" type="submit" />
-                  
+            <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+          control={form.control}
+          name="firstName"
+          defaultValue=""
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input  placeholder="First Name" {...field} />
+              </FormControl>
+              
+              <FormMessage  />
+            </FormItem>
+          )}
+        />
+          <FormField
+          control={form.control}
+          name="email"
+          defaultValue=""
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input  placeholder="Email" {...field} />
+              </FormControl>
+              
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+          <FormField
+          control={form.control}
+          name="password"
+          defaultValue=""
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>password</FormLabel>
+              <FormControl>
+                <Input  placeholder="password" {...field} />
+              </FormControl>
+              
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          defaultValue=""
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>confirm Password</FormLabel>
+              <FormControl>
+                <Input  placeholder="confirm Password" {...field} />
+              </FormControl>
+              
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+                <Button>Supment</Button>
                   <p className="font-bold pl-4">You Have Account?<Link to="/SignIn" className="p-2 rounded-lg text-gray-600 underline">Login </Link></p>
             </form>
           
         </div>
+      </FormProvider>  
     );
 }
-
 
 
