@@ -1,10 +1,10 @@
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {  SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import http from "./http/http";
 import {  useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -53,7 +53,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
 
 
     return (
-      <FormProvider {...form}>
+      <Form {...form}>
         <div className="space-y-5 pt-14  pb-4" >
             <h1 className="font-bold text-3xl text-center pt-2 ">Register</h1>
             <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={form.handleSubmit(onSubmit)}>
@@ -95,7 +95,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
             <FormItem>
               <FormLabel>password</FormLabel>
               <FormControl>
-                <Input  placeholder="password" {...field} />
+                <Input  type="password" placeholder="***" {...field} />
               </FormControl>
               
               <FormMessage />
@@ -110,7 +110,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
             <FormItem>
               <FormLabel>confirm Password</FormLabel>
               <FormControl>
-                <Input  placeholder="confirm Password" {...field} />
+                <Input  type="password" placeholder="***" {...field} />
               </FormControl>
               
               <FormMessage />
@@ -122,7 +122,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
             </form>
           
         </div>
-      </FormProvider>  
+      </Form>  
     );
 }
 
