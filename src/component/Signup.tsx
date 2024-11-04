@@ -64,7 +64,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
           render={({ field }) => (
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <FormControl>
+              <FormControl className="bg-white">
                 <Input  placeholder="First Name" {...field} />
               </FormControl>
               
@@ -79,7 +79,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
+              <FormControl className="bg-white">
                 <Input  placeholder="Email" {...field} />
               </FormControl>
               
@@ -94,7 +94,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
           render={({ field }) => (
             <FormItem>
               <FormLabel>password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-white">
                 <Input  type="password" placeholder="***" {...field} />
               </FormControl>
               
@@ -109,7 +109,7 @@ type SchemaValidation = z.infer<typeof schemaValidation>;
           render={({ field }) => (
             <FormItem>
               <FormLabel>confirm Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-white">
                 <Input  type="password" placeholder="***" {...field} />
               </FormControl>
               

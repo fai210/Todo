@@ -22,6 +22,10 @@ export default function SignIn() {
     const navigate = useNavigate();
     const form = useForm<LoginValidation>({
         resolver: zodResolver(loginValidation),
+        defaultValues:{
+            password:"",
+
+        }
     });
  
  
@@ -49,13 +53,14 @@ export default function SignIn() {
         <div className="space-y-5 pt-14  pb-4" >
             <h1 className="font-bold text-3xl text-center pt-2 ">Login</h1>
             <form className="flex flex-col  max-w-lg  mx-auto bg-[#E5E1DA] rounded-md p-5 space-y-6 " onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
+            <FormField 
           control={form.control}
           name="firstName"
+          defaultValue=""
           render={({ field }) => (
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <FormControl>
+              <FormControl className="bg-white">
                 <Input  placeholder="First Name" {...field} />
               </FormControl>
               
@@ -70,7 +75,7 @@ export default function SignIn() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>password</FormLabel>
-            <FormControl>
+            <FormControl className="bg-white">
               <Input type="password" placeholder="***" {...field} />
             </FormControl>
             
@@ -78,7 +83,7 @@ export default function SignIn() {
           </FormItem>
         )}
       />
-                <Button>test</Button>
+                <Button>Login</Button>
             </form>
         </div>
     </Form>
