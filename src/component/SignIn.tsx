@@ -38,7 +38,7 @@ export default function SignIn() {
                 const foundUser = users.find(item => item.firstName === data.firstName && item.password === data.password);
                 console.log(foundUser)
                 if (foundUser) {
-                    await auth?.loginAction(foundUser);
+                    auth?.loginAction(foundUser);
                     navigate("/");
                 }
  

@@ -25,10 +25,10 @@ function AddTodoForm() {
         }
     });
 
-    const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
         if (!userId) return;
 
-        await addTodo.mutateAsync({ title: data.title, userId });
+        addTodo.mutateAsync({ title: data.title, userId });
         form.reset(); 
     };
 
@@ -38,11 +38,10 @@ function AddTodoForm() {
                 <FormField 
                     control={form.control}
                     name="title"
-                    
                     render={({ field }) => (
                         <FormItem >
                             {/* <FormLabel></FormLabel> */}
-                            <FormControl className="rounded-s-md w-80 grow border border-gray-400 p-2 bg-white">
+                            <FormControl className="flex grow rounded-s-md w-80 grow border border-gray-400 p-2 bg-white">
                                 <Input 
                                     placeholder="What needs to be done?"
                                     {...field}
@@ -52,9 +51,6 @@ function AddTodoForm() {
                         </FormItem>
                     )}
                 />
-                {/* <button type="submit" className="w-16 rounded-e-md bg-black text-white hover:bg-slate-500">
-                    Add
-                </button> */}
                 <Button>Add</Button>
             </form>
         </Form>

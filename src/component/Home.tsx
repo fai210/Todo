@@ -29,7 +29,7 @@ export default function Home() {
     });
 
     const deleteCompleted = useMutation({
-        mutationFn: () => http.delete(`todo/completed?userId=${userId}`), 
+        mutationFn: () => http.delete(`todo/completed/userId=${userId}`), 
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey:["todos"]
@@ -68,8 +68,6 @@ export default function Home() {
         }
     };
   
-    
-
     return (
         <main className="">
             <div className="font-bold text-3xl text-center pt-10">
